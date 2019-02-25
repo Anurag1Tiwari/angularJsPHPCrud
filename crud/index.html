@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="appcontroller.js"></script>
+  <body ng-app="myShoppingList" ng-cloak ng-controller="myCtrl">
+    <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4 class="text-white">Contact</h4>
+              <ul class="list-unstyled">
+                <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                <li><a href="#" class="text-white">Like on Facebook</a></li>
+                <li><a href="#" class="text-white">Email me</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">            
+            <strong>A-code</strong>
+          </a>
+          <ul class="nav">
+            <li class="nav-item">
+              <a type="button" class="btn btn-default" data-toggle="modal" data-target="#modalAdd">Add Record</a>
+            </li>            
+          </ul>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main role="main">
+      <section class="jumbotron text-center">
+        <div class="container">         
+         
+          <div class="card centerCard">
+            <h3 class="jumbotron-heading">Album example</h3>
+
+            <ul class="list-group">
+              <li ng-repeat="x in users" class="list-group-item d-flex justify-content-between align-items-center">{{x.firstName + " " + x.lastName + " / " + x.age}}
+                <span class="iconWrap">
+                  <span data-toggle="modal" data-target="#modalEdit" ng-click="editItem(x.id, $index)" style="cursor:pointer;" class="badge badge-info">&#x270E;</span>
+                  <span ng-click="removeItem(x.id, $index)" style="cursor:pointer;" class="badge badge-danger">×</span>             
+                </span>
+              </li>
+            </ul>
+            
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="container">        
+        <p>A-Code example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+      </div>
+    </footer>
+    <!-- Modal Add-->
+    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalAdd">Add Record here</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">              
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form method="post" id="addUser" name="addUser" ng-submit="addItem(user)">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" placeholder="First Name" ng-model="user.firstName" id="firstName" class="form-control">    
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" placeholder="Last Name" ng-model="user.lastName" id="lastName" class="form-control">    
+              </div>
+              <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" placeholder="Age" ng-model="user.age" id="age" class="form-control">    
+              </div>
+              
+               <button type="submit" class="btn btn-primary">Add</button>
+            </form>       
+           
+            <p class="text-red">{{errortext}}</p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Edit-->
+    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEdit" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalEdit">Edit User | {{user.firstName}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">              
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form id="updateItem" name="updateItem" ng-submit="updateItem1(user)">
+              <input type="hidden" ng-model="user.id" >
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" placeholder="First Name" id="firstName" class="form-control" ng-model="user.firstName">    
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" placeholder="Last Name" id="lastName" class="form-control" ng-model="user.lastName">    
+              </div>
+              <div class="form-group">
+                <label for="age">Age</label>
+                <input type="text" string-to-number placeholder="Age" id="age" class="form-control" ng-model="user.age">    
+              </div>
+              
+               <button type="submit" class="btn btn-primary">Update</button>
+            </form>       
+           
+            <p class="text-red">{{errortext}}</p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+body,html{
+	background: #E9ECEF;
+}
+main{
+	min-height: 500px;
+	background: #E9ECEF;
+}
+footer{
+	min-height:  30px;
+    padding: 10px 0;
+    background: #737577;
+    color: #fff;
+    width: 100%;
+}
+.centerCard{
+	max-width: 330px;
+	padding: 20px;
+	margin: 0 auto;
+}
+.list-group{
+	padding: 20px 0;
+}
